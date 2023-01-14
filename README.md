@@ -1,1 +1,1 @@
-Yummy Recipes
+Yummy Recipes Frontend
