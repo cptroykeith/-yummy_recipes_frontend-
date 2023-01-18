@@ -1,0 +1,124 @@
+{% extends 'base.html' %} {% block title %}-recipe{% endblock %} {% block content %}
+<div id='content' class="container">
+    <div class="row">
+        <div class="col">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <h2 class="page-title">{{ recipe_details['name'] }} Recipe: <small class="text-muted">in {{ category.name }}Category</small></h2>
+                    </div>
+                    <!-- ///////////////////////////////////////////// -->
+                    {% if editable %}
+                    <div class="col-6 col-md-2 page-title">
+                        <h2><button type="button" data-toggle="modal" data-target="#create-step" class="btn">Add Step</button></h2>
+                    </div>
+                    <!-- Create Step Modal -->
+                    <div id="create-step" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Add Step</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <form method="POST" action="{{ url_for('recipe_detail', user_key=user_key, category_key=category.key, recipe_key=recipe_details['key']) }}">
+                                        <div class="form-group row">
+                                            <label for="text-content-in" class="col-sm-1 col-form-label">Step</label>
+                                            <div class="col-sm-11">
+                                                <input type="text" class="form-control" name='text_content' id="text-content-in" placeholder="Next Step">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row modal-footer" style="margin-right: 5%;">
+                                            <div class="col-12 col-sm-2">
+                                                <button type="submit" class="btn btn-primary" style="width: auto; min-width: 100%; margin-bottom: 2%;">Save</button>
+                                            </div>
+                                            <div class="col-12 col-sm-2">
+                                                <button type="button" class="btn btn-default" style="width: auto; min-width: 100%; margin-bottom: 2%;" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!--modal-body-->
+                            </div>
+                            <!--modal-content-->
+                        </div>
+                        <!-- modal-dialog -->
+                    </div>
+                    <!--#create-step -->
+                    <!-- Edit Modals -->
+                    {% for step in steps %}
+                    <div id="edit-step-{{ loop.index }}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Editing {{ recipe_details['name'] }} step {{ loop.index }}</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <form method="GET" action="{{ url_for('step_detail', user_key=user_key, category_key=category.key, recipe_key=recipe_details['key'], step_key=step.key) }}">
+                                        <div class="form-group row">
+                                            <label for="text-content-edit" class="col-sm-2 col-form-label">Step {{ loop.index }}</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name='text_content' id="text-content-edit" value="{{ step.text_content }}">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="_method" value="put" />
+                                        <div class="form-group row modal-footer" style="margin-right: 5%;">
+                                            <div class="col-12 col-sm-2">
+                                                <button type="submit" class="btn btn-primary" style="width: auto; min-width: 100%; margin-bottom: 2%;">Save</button>
+                                            </div>
+                                            <div class="col-12 col-sm-2">
+                                                <button type="button" class="btn btn-default" style="width: auto; min-width: 100%; margin-bottom: 2%;" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!--modal-body-->
+                            </div>
+                            <!--modal-content-->
+                        </div>
+                        <!-- modal-dialog -->
+                    </div>
+                    <!--#edit-step- -->
+                    {% endfor %}
+                    <div class="col-6 col-md-2 page-title">
+                        <form action="{{ url_for('recipe_detail', user_key=user_key, category_key=category.key, recipe_key=recipe_details['key']) }}"
+                            method="GET">
+                            <input type="hidden" name="_method" value="delete" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <tbody>
+                        {% for step in steps %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}.</th>
+                            <td class="col-10">{{ step.text_content }}</td>
+                            {% if editable %}
+                            <td class="col-1"><button type="button" data-toggle="modal" data-target="#edit-step-{{ loop.index }}" class="btn btn-primary">Edit</button></td>
+                            <td class="col-1">
+                                <form action="{{ url_for('step_detail', user_key=user_key, category_key=category.key, recipe_key=recipe_details['key'], step_key=step.key) }}"
+                                    method="GET">
+                                    <input type="hidden" name="_method" value="delete" />
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
