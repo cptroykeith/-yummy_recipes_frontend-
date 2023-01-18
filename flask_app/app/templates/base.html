@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html class="home-page" lang="en">
+
+<head>
+    <title>YummyRecipes{% block title %}{% endblock %}</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}" />
+    <!-- Lay.css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lay_.css')}}" />
+    <!-- Custom CSS-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">YummyRecipes</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-md-auto">
+                    <li class="nav-item{% if active == 'home' %} active{% endif %}">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home{% if active == 'home' %} <span class="sr-only">(current)</span>{% endif %}</a>
+                    </li>
+                    {% if session['user_key'] %}
+                    <li class="nav-item{% if active == 'categories_list' %} active{% endif %}">
+                        <a class="nav-link" href="{{ url_for('categories_list', user_key=session['user_key']) }}">Recipes{% if active == 'categories_list' %} <span class="sr-only">(current)</span>{% endif %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('signout') }}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Login</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+    {% for message in get_flashed_messages() %}
+    {% if message %}
+    <div class='row alert alert-info'>
+      <div class='col-sm-12 text-center flash'>{{ message }}</div>
+    </div>
+    {% endif %}
+      {% endfor %}
+
+      {% if error %}
+      <div class='row alert alert-danger'>
+        <div class='col-sm-12 text-center flash'>{{ error }}</div>
+      </div>
+      {% endif %}
+    </div>
+    {% block content %} {% endblock %}
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+</body>
+
+</html>

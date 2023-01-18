@@ -1,0 +1,128 @@
+{% extends 'base.html' %} {% block title %}-{{ recipe_category_details['name'] }}{% endblock %} {% block content %}
+<div id='content' class="container">
+    <div class="row">
+        <div class="col">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-10">
+                        <h2 class="page-title">Category: <small class="text-muted">{{ recipe_category_details['name'] }}</small></h2>
+                    </div>
+                    {% if editable %}
+                    <div class="col-12 col-md-2 page-title">
+                        <h2><button type="button" data-toggle="modal" data-target="#create-recipe" class="btn">Add Recipe</button></h2>
+                    </div>
+                    <!-- Create Recipe Modal -->
+                    <div id="create-recipe" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Create New Recipe</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <form method="POST" action="{{ url_for('categories_detail', user_key=user_key, category_key=recipe_category_details['key']) }}">
+                                        <div class="form-group row">
+                                            <label for="name-in" class="col-sm-3 col-form-label">Name</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name='name' id="name-in" placeholder="name of recipe">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="description-in" class="col-sm-3 col-form-label">Description</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name='description' id="description-in" placeholder="description">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row modal-footer" style="margin-right: 5%;">
+                                            <div class="col-12 col-sm-2">
+                                                <button type="submit" class="btn btn-primary" style="width: auto; min-width: 100%; margin-bottom: 2%;">Save</button>
+                                            </div>
+                                            <div class="col-12 col-sm-2">
+                                                <button type="button" class="btn btn-default" style="width: auto; min-width: 100%; margin-bottom: 2%;" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!--modal-body-->
+                            </div>
+                            <!--modal-content-->
+                        </div>
+                        <!-- modal-dialog -->
+                    </div>
+                    <!--#create-recipe -->
+                    <!-- Edit Modals -->
+                    {% for recipe in recipes %}
+                    <div id="edit-recipe-{{ loop.index }}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Edit {{ recipe.name }} Recipe</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <form method="GET" action="{{ url_for('recipe_detail', user_key=user_key, category_key=recipe_category_details['key'], recipe_key=recipe.key) }}">
+                                        <div class="form-group row">
+                                            <label for="name-in" class="col-sm-3 col-form-label">Name</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name='name' id="name-in" value="{{ recipe.name }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="description-in" class="col-sm-3 col-form-label">Description</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name='description' id="description-in" value="{{ recipe.description }}">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="_method" value="put" />
+                                        <div class="form-group row modal-footer" style="margin-right: 5%;">
+                                            <div class="col-12 col-sm-2">
+                                                <button type="submit" class="btn btn-primary" style="width: auto; min-width: 100%; margin-bottom: 2%;">Save</button>
+                                            </div>
+                                            <div class="col-12 col-sm-2">
+                                                <button type="button" class="btn btn-default" style="width: auto; min-width: 100%; margin-bottom: 2%;" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!--modal-body-->
+                            </div>
+                            <!--modal-content-->
+                        </div>
+                        <!-- modal-dialog -->
+                    </div>
+                    <!--#edit-recipe- -->
+                    {% endfor %} {% endif %}
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <tbody>
+                        {% for recipe in recipes %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}.</th>
+                            <td class="col-10"><a href="{{ url_for('recipe_detail', user_key=user_key, category_key=recipe_category_details['key'], recipe_key=recipe.key) }}">{{ recipe.name }}</a>:
+                                {{ recipe.description[:65] }}...</td>
+                                {% if editable %}
+                            <td class="col-1"><button type="button" data-toggle="modal" data-target="#edit-recipe-{{ loop.index }}" class="btn btn-primary">Edit</button></td>
+                            <td class="col-1">
+                                <form action="{{ url_for('recipe_detail', category_key=recipe_category_details['key'], user_key=user_key, recipe_key=recipe.key) }}" method="GET">
+                                    <input type="hidden" name="_method" value="delete" />
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
