@@ -41,6 +41,7 @@ jobs:
       - run:
           name: Run Unit Tests
           command:
+            pip install pytest
             pytest --junitxml=test-report/junit.xml --html=test-report/pytest_report.html --self-contained-html
       - store_test_results:
           path: test-reports
