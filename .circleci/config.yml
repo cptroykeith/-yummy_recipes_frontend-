@@ -12,7 +12,8 @@ jobs:
       - run:
           name: Run Unit Tests
           command: |
-            pytest --junitxml=test-report/junit.xml --html=test-report/pytest_report.html --self-contained-html
+            pip install pytest-html
+            pytest --junitxml=test-report/junit.xml --html=test-report/pytest_report.html
       - store_test_results:
           path: test-reports
       - store_artifacts:
