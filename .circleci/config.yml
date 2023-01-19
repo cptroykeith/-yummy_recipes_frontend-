@@ -43,7 +43,7 @@ jobs:
           command:
             pip install pytest
 
-            pytest --junitxml=test-report/junit.xml flask_app/app/test
+            pytest --junitxml=test-report/junit.xml
       - store_test_results:
           path: test-reports
       - store_artifacts:
