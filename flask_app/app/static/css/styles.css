@@ -1,6 +1,6 @@
 #front-page-dark {
-    background: url('../img/recipe.jpeg') center center no-repeat;
-    background-image:url('../img/recipe.jpeg');
+    background: url('../img/recipe.jpg') center center no-repeat;
+    background-image:url('../img/recipe.jpg');
     background-image:-o-linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/recipe.jpg');
     background-image:-webkit-linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/recipe.jpg');
     background-image:-moz-linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/recipe.jpg');
