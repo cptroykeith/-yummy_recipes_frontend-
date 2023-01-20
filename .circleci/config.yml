@@ -25,6 +25,7 @@ jobs:
           path: test-reports
       - store_artifacts:
           path: test-reports
+          
 workflows:
   sample:  
     jobs:
