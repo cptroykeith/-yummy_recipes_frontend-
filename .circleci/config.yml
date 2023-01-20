@@ -20,7 +20,7 @@ jobs:
           name: pip install --user coverage
           command: sh -c 'cd ./flask_app/ && coverage run -m --source=app unittest discover test && coverage report'
       - run:
-          name: Install coveralls
+          name: Install --user coveralls
           command: pip install coveralls
       - run:
           name: Uploading coverage to coveralls
