@@ -22,7 +22,7 @@ jobs:
 
       - run:
           name: Uploading coverage to coveralls
-          command: coveralls --lcov-file flask_app/coverage.lcov
+          command: coveralls --lcov-file /-yummy_recipes_frontend-/flask_app/coverage.lcov
       - store_test_results:
           path: test-reports
       - store_artifacts:
