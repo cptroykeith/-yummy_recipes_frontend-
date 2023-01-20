@@ -17,8 +17,8 @@ jobs:
             pip install --user pytest-html
             pytest --junitxml=test-report/junit.xml --html=test-report/pytest_report.html
       - run:
-          name: Install and Make
-          command: 'npm install && make test-coverage'
+          name: pip install --user coverage
+          command: sh -c 'cd ./flask_app/ && coverage run -m --source=app unittest discover test && coverage report'
 
       - coveralls/upload
       - store_test_results:
