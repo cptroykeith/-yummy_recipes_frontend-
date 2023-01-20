@@ -24,7 +24,7 @@ jobs:
           command: pip install coveralls
       - run:
           name: Uploading coverage to coveralls
-          command: coveralls /flask_app/coverage.lcov
+          command: coveralls 'cd ./flask_app/coverage.lcov'
       - store_test_results:
           path: test-reports
       - store_artifacts:
