@@ -20,7 +20,7 @@ jobs:
           name: pip install --user coverage
           command: sh -c 'cd ./flask_app/ && coverage run -m --source=app unittest discover test && coverage report'
 
-      - coveralls
+      - coveralls --lcov-file flask_app/coverage.lcov
       - store_test_results:
           path: test-reports
       - store_artifacts:
