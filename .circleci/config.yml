@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  coveralls: coveralls/coveralls@x.y.z
 jobs:
   run-test: 
     docker:
@@ -14,6 +16,11 @@ jobs:
           command: |
             pip install --user pytest-html
             pytest --junitxml=test-report/junit.xml --html=test-report/pytest_report.html
+      - run:
+          name: Install and Make
+          command: 'npm install && make test-coverage'
+
+      - coveralls/upload
       - store_test_results:
           path: test-reports
       - store_artifacts:
