@@ -24,7 +24,7 @@ jobs:
           command: pip install coveralls
       - run:
           name: Uploading coverage to coveralls
-          command: coveralls --lcov-file flask_app/coverage.lcov
+          command: cd ./flask_app/ && coverage run -m unittest discover
       - store_test_results:
           path: test-reports
       - store_artifacts:
