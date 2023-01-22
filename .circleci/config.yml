@@ -11,20 +11,25 @@ jobs:
           name: Install Python Dependencies
           command: |
             pip install --user -r requirements.txt
+
       - run:
           name: Run Unit Tests
           command: |
             pip install --user pytest-html
             pytest --junitxml=test-report/junit.xml --html=test-report/pytest_report.html
+
       - run:
           name: pip install --user coverage
           command: sh -c 'cd ./flask_app/ && coverage run -m --source=app unittest discover test && coverage report'
+
       - run:
           name: pip install --user coveralls
           command: pip install coveralls
+
       - run:
           name: Uploading coverage to coveralls
           command: cd ./flask_app/ && coverage run -m unittest discover
+          
       - store_test_results:
           path: test-reports
       - store_artifacts:
