@@ -68,4 +68,5 @@ Ensure you have the dependencies on your system (install the packages in require
 In your terminal, enter the directory -yummy_recipes_frontend-
 
 sh -c 'cd ./flask_app/ && coverage run -m --source=app unittest discover test && coverage report'
+
 Observe the output in your terminal
