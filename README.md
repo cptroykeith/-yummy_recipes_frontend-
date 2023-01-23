@@ -24,6 +24,7 @@ popper.js v1.11.1+
 Flask v0.12+
 
 Python v3.5+
+
 Other dependecies can be found in requirements.txt in this repo
 
 
