@@ -16,9 +16,13 @@ Fun fact: A 'Database' has been implemented within it using python data structur
 Dependencies
 
 Bootstrap v4.0.0-alpha
+
 Jquery v3.2.1
+
 popper.js v1.11.1+
+
 Flask v0.12+
+
 Python v3.5+
 Other dependecies can be found in requirements.txt in this repo
 
@@ -28,14 +32,17 @@ How to run flask application
 Clone the repository to your computer
 
 git clone https://github.com/cptroykeith/-yummy_recipes_frontend-.git
+
 In your terminal, enter the directory -yummy_recipes_frontend-
 
 cd YummyRecipes
+
 Create and activate your virtualenv. For ubuntu users, see below.
 
 virtualenv -p /usr/bin/python3 env
 
 source env/bin/activate
+
 Install the packages in requirements.txt
 
 pip install -r requirements.txt
