@@ -3,7 +3,7 @@ Yummy Recipes Frontend
 
 A web app to save and share food recipes we love.
 
-About
+<h1>About<h1>
 
 The YummyRecipes app is a web application meant to help users save and share recipes of their favourite food.
 
