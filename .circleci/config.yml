@@ -30,6 +30,12 @@ jobs:
       - run:
           name: Uploading coverage to coveralls
           command: cd ./flask_app/ && coverage run -m unittest discover
+      - run:
+          name: Send coverage data to Coveralls
+          command: |
+            coverage xml
+            echo "Sending coverage data to Coveralls"
+            coveralls
           
       - store_test_results:
           path: test-reports
